@@ -1,6 +1,6 @@
 // Shell.
 
-#include "kernel/types.h"
+#include "kernel/types.h" 
 #include "user/user.h"
 #include "kernel/fcntl.h"
 
@@ -330,9 +330,9 @@ parsecmd(char *s)
   char *es;
   struct cmd *cmd;
 
-  es = s + strlen(s);
-  cmd = parseline(&s, es);
-  peek(&s, es, "");
+  es = s + strlen(s); //定位到指令字符串末尾后一个位置
+  cmd = parseline(&s, es);  //
+  peek(&s, es, ""); 
   if(s != es){
     fprintf(2, "leftovers: %s\n", s);
     panic("syntax");
@@ -424,7 +424,7 @@ parseexec(char **ps, char *es)
     return parseblock(ps, es);
 
   ret = execcmd();
-  cmd = (struct execcmd*)ret;
+  cmd = (struct execcmd*)ret; 
 
   argc = 0;
   ret = parseredirs(ret, ps, es);
