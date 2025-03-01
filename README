@@ -2,5 +2,8 @@
 每个lab对应一个单独的分支
 已经实现了的分支：
 - util(所有)
-- syscall
-  1. System call tracing
+- syscall(所有)
+
+关于syscall的一些问题：
+1. 用于trace的掩码mask会被初始化为0，这是内存分配时进行的初始化。
+2. freemem内存的分配由内核中的分配器负责，有一个管理空闲页面的结构体。
