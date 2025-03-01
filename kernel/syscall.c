@@ -133,7 +133,7 @@ static uint64 (*syscalls[])(void) = {
 
 // lab2: add syscall name array for trace
 static char* sysname[] = {
-  "fork","exit","wait","pipe","read","kill","exec","fstat","chdir","dup","getpid","sbrk","sleep","uptime","open","write","mknod","unlink","link","mkdir","close"
+  "fork","exit","wait","pipe","read","kill","exec","fstat","chdir","dup","getpid","sbrk","sleep","uptime","open","write","mknod","unlink","link","mkdir","close","trace"
 };
 
 void
@@ -147,7 +147,7 @@ syscall(void)
     p->trapframe->a0 = syscalls[num]();
     //lab2: print for trace
     if((1 << num ) & p->mask){
-      printf("%d: syscall %s -> %d\n", p->pid, sysname[num],p->trapframe->a0 );
+      printf("%d: syscall %s -> %d\n", p->pid, sysname[num-1],p->trapframe->a0 );
     }
   } else {
     printf("%d %s: unknown sys call %d\n",
