@@ -3,6 +3,7 @@
 该分支已实现的内容
 - Print page table
 - Speed up system calls 
+- Detecting which pages have been accessed 
 内核页表什么时候创建？
 - 内核初始化main函数中调用kvminit，其调用kvmmake创建内核页表
 内核页表怎么装载的？
