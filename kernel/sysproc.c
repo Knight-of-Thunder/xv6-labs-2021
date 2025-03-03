@@ -75,13 +75,28 @@ sys_sleep(void)
   return 0;
 }
 
+pte_t *
+walk(pagetable_t pagetable, uint64 va, int alloc);
 
 #ifdef LAB_PGTBL
 int
 sys_pgaccess(void)
 {
-  // lab pgtbl: your code here.
-  return 0;
+  uint64 va;
+  int npage;
+  uint64 ucache;
+  int mask = 0;
+  struct proc *p = myproc();
+  if(argaddr(0, &va) < 0 || argint(1, &npage) < 0 || argaddr(2, &ucache) < 0)
+    return -1;
+  for(int i = 0; i < npage; i++, va += PGSIZE)
+  {
+    pte_t *pte = walk(p->pagetable, va, 0);
+    if(*pte & PTE_A)
+      mask |= 1<<i;
+    *pte &= ~PTE_A; //is it ok?
+  }
+  return copyout(p->pagetable, ucache, (char*)&mask, sizeof(mask));
 }
 #endif
 
