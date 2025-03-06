@@ -20,6 +20,8 @@ static void freeproc(struct proc *p);
 
 extern char trampoline[]; // trampoline.S
 
+char sigtrapframe[sizeof(struct trapframe)];
+
 // helps ensure that wakeups of wait()ing
 // parents are not lost. helps obey the
 // memory model when using p->parent.
@@ -141,6 +143,10 @@ found:
   p->context.ra = (uint64)forkret;
   p->context.sp = p->kstack + PGSIZE;
 
+  // init args involved with sigalarm, really need this?
+  p->siginterval = 0;
+  p->sighandler = 0;
+  p->sigticks = 0;
   return p;
 }
 
