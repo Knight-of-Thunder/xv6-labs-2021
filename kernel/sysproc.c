@@ -70,6 +70,8 @@ sys_sleep(void)
     sleep(&ticks, &tickslock);
   }
   release(&tickslock);
+  // test backtrace
+  backtrace();
   return 0;
 }
 
