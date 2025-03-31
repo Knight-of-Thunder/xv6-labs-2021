@@ -17,6 +17,9 @@ switch通过切换上下文切换到scheduler
 示例 2：scheduler() 里获取 p->lock，但在 yield() 里释放
 - scheduler() 让 RUNNABLE → RUNNING，必须持有 p->lock，直到 swtch() 完全切换成功，才可以释放 p->lock。
 
+## sleep wakeup为什么有时候需要循环检查条件
+- 防止虚假唤醒，所以唤醒之后，在持有锁的条件下再检查一遍
+
 # callee saved register vs caller saved register
 - 上下文切换的时候，只需要保存被调用者保存寄存器，因为调用者保存寄存器的值被保存在程序的堆栈中了
 而被调用者保存寄存器的值会被调用的函数修改（一般的函数会在ret前复原这些值），但是线程切换则有所不同
