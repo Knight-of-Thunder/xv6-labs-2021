@@ -38,7 +38,7 @@ kinit()
   char cpumemname[16];
   for(int i = 0; i < NCPU; i++){
     snprintf(cpumemname, 16, "kmem_cpu%d", i);
-    printf("%s\n",cpumemname);
+    // printf("%s\n",cpumemname);
     initlock(&kcpumem[i].lock, cpumemname);
   }
   freerange(end, (void*)PHYSTOP);
