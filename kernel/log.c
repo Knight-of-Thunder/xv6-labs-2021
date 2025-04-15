@@ -84,7 +84,7 @@ install_trans(int recovering)
 
 // Read the log header from disk into the in-memory log header
 static void
-read_head(void)
+ read_head(void)
 {
   struct buf *buf = bread(log.dev, log.start);
   struct logheader *lh = (struct logheader *) (buf->data);
@@ -181,7 +181,7 @@ write_log(void)
   int tail;
 
   for (tail = 0; tail < log.lh.n; tail++) {
-    struct buf *to = bread(log.dev, log.start+tail+1); // log block
+    struct buf *to = bread(log.dev, log.start+tail+1); // log block // 日志块在cache中也有一个副本
     struct buf *from = bread(log.dev, log.lh.block[tail]); // cache block
     memmove(to->data, from->data, BSIZE);
     bwrite(to);  // write the log
